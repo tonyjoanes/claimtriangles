@@ -25,7 +25,7 @@
             exporter.Export(output, outputDirectory);
 
 
-            Console.WriteLine($"Hello World! {configuration.GetConnectionString("Storage")}");
+            Console.WriteLine("Calculations Completed");
             Console.ReadLine();
         }
 
