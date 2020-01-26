@@ -36,12 +36,11 @@ namespace TJ.ClaimTriangles
 
                 foreach (var developmentYears in oYear.DevelopmentYears)
                 {
-                    foreach (var product in products.Where(x => x.Name == "Non-Comp"))
+                    foreach (var product in products)
                     {
                         var dataPoint = data.FirstOrDefault(x => x.Product == product.Name
                             && x.OriginYear == oYear.Year
                             && x.DevelopmentYear == developmentYears.Year);
-
 
                         var index = product.Values.Count;
                         var previousValue = index == 0
@@ -61,7 +60,7 @@ namespace TJ.ClaimTriangles
                         else
                         {
                             currentYear = oYear.Year;
-                            incrementalValue = dataPoint.Incremental;
+                            incrementalValue = dataPoint == null ? 0 : dataPoint.Incremental;
                             previousValue = 0;
                         }
 
