@@ -1,7 +1,7 @@
-﻿using System.IO;
-
-namespace TJ.ClaimTriangles
+﻿namespace TJ.ClaimTriangles
 {
+    using System.IO;
+
     /// <summary>
     /// Implementation of the FileHelper
     /// </summary>

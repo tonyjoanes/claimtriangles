@@ -1,9 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TJ.ClaimTriangles.Models
+﻿namespace TJ.ClaimTriangles.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    /// <summary>
+    /// Output Model
+    /// </summary>
     public class OutputModel
     {
         public int EarliestYear { get; set; }

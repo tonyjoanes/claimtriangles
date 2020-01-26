@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TJ.ClaimTriangles.Models
+﻿namespace TJ.ClaimTriangles.Models
 {
+    /// <summary>
+    /// Development Year Model
+    /// </summary>
     public class DevelopmentYear
     {
         public int Year { get; set; }

@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-
-namespace TJ.ClaimTriangles.Implementation
+﻿namespace TJ.ClaimTriangles.Implementation
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+
+    /// <summary>
+    /// CSV Claim Mapper
+    /// </summary>
     public static class ClaimCsvMapper
     {
+        /// <summary>
+        /// Mapper function from string array to input data
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static List<InputData> Map(List<string[]> data)
         {
             var dataList = new List<InputData>();

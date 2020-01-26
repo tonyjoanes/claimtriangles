@@ -1,5 +1,8 @@
 ﻿namespace TJ.ClaimTriangles
 {
+    /// <summary>
+    /// Input Data Model
+    /// </summary>
     public class InputData
     {
         public string Product { get; set; }

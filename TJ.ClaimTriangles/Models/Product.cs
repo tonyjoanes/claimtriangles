@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TJ.ClaimTriangles.Models
+﻿namespace TJ.ClaimTriangles.Models
 {
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// Product Model
+    /// </summary>
     public class Product
     {
         public Product()

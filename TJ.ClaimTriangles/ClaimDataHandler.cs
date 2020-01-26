@@ -20,39 +20,13 @@
             var products = GetProducts(data);
             var currentYear = originYearVsDevYear.First().Year;
 
-            foreach (var oYear in originYearVsDevYear)
+            foreach (var product in products)
             {
-                foreach (var developmentYears in oYear.DevelopmentYears)
+                foreach (var oYear in originYearVsDevYear)
                 {
-                    foreach (var product in products.Where(x => x.Name == "Non-Comp"))
+                    foreach (var developmentYears in oYear.DevelopmentYears)
                     {
-                        var dataPoint = data.FirstOrDefault(x => x.Product == product.Name
-                            && x.OriginYear == oYear.Year
-                            && x.DevelopmentYear == developmentYears.Year);
-
-                        var index = product.Values.Count;
-                        var previousValue = index == 0
-                            ? 0
-                            : product.Values[index - 1];
-
-
-                        // we dont want an incremental if were on a new origin year
-                        // need a nicer way for this!!
-                        double incrementalValue = 0;
-                        if (currentYear == oYear.Year)
-                        {
-                            incrementalValue = dataPoint != null
-                              ? dataPoint.Incremental
-                              : 0;
-                        }
-                        else
-                        {
-                            currentYear = oYear.Year;
-                            incrementalValue = dataPoint == null ? 0 : dataPoint.Incremental;
-                            previousValue = 0;
-                        }
-
-                        product.Values.Add(previousValue + incrementalValue);
+                        Accumulate(oYear, developmentYears, data, product, currentYear);
                     }
                 }
             }
@@ -65,6 +39,45 @@
             };
 
             return output;
+        }
+
+        /// <summary>
+        /// Accumulate the claim values for each development year
+        /// </summary>
+        /// <param name="oYear"></param>
+        /// <param name="developmentYear"></param>
+        /// <param name="data"></param>
+        /// <param name="product"></param>
+        /// <param name="currentYear"></param>
+        private void Accumulate(OriginYear oYear, DevelopmentYear developmentYear, IEnumerable<InputData> data, Product product, int currentYear)
+        {
+            var dataPoint = data.FirstOrDefault(x => x.Product == product.Name
+                            && x.OriginYear == oYear.Year
+                            && x.DevelopmentYear == developmentYear.Year);
+
+            var index = product.Values.Count;
+            var previousValue = index == 0
+                ? 0
+                : product.Values[index - 1];
+
+
+            // we dont want an incremental if were on a new origin year
+            // need a nicer way for this!!
+            double incrementalValue = 0;
+            if (currentYear == oYear.Year)
+            {
+                incrementalValue = dataPoint != null
+                  ? dataPoint.Incremental
+                  : 0;
+            }
+            else
+            {
+                currentYear = oYear.Year;
+                incrementalValue = dataPoint == null ? 0 : dataPoint.Incremental;
+                previousValue = 0;
+            }
+
+            product.Values.Add(previousValue + incrementalValue);
         }
 
         /// <summary>
