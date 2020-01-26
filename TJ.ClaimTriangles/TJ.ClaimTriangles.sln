@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TJ.ClaimTriangles", "TJ.ClaimTriangles.csproj", "{C43C40EC-3A90-4812-83EF-4E9595C2FD1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TJ.ClaimTriangles.Test", "..\TJ.ClaimTriangles.Test\TJ.ClaimTriangles.Test.csproj", "{8E362A64-C951-49DA-886C-0C93905B774E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C43C40EC-3A90-4812-83EF-4E9595C2FD1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C43C40EC-3A90-4812-83EF-4E9595C2FD1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C43C40EC-3A90-4812-83EF-4E9595C2FD1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C43C40EC-3A90-4812-83EF-4E9595C2FD1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E362A64-C951-49DA-886C-0C93905B774E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E362A64-C951-49DA-886C-0C93905B774E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E362A64-C951-49DA-886C-0C93905B774E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E362A64-C951-49DA-886C-0C93905B774E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9DA07735-9960-4C80-A89C-211C3463F30C}
+	EndGlobalSection
+EndGlobal
