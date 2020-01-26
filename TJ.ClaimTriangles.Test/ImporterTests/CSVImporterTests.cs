@@ -9,7 +9,7 @@ namespace TJ.ClaimTriangles.Test.ImporterTests
         [Fact]
         public void ImportData_EmptyFilePath_ReturnsEmptyDataList()
         {
-            var sut = new CSVImportService(new FileReader(), x => new List<InputData>());
+            var sut = new CSVImportService(new FileHelper(), x => new List<InputData>());
 
             var actual = sut.ImportData("");
 
@@ -19,7 +19,7 @@ namespace TJ.ClaimTriangles.Test.ImporterTests
         [Fact]
         public void ImportData_WithFilePath_ReadsFile()
         {
-            var mockFileReader = new Mock<IFile>();
+            var mockFileReader = new Mock<IFileHelper>();
             mockFileReader
                 .Setup(r => r.ReadAllLines(It.IsAny<string>()))
                 .Returns(new string[]

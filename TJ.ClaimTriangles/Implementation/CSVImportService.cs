@@ -6,10 +6,10 @@
 
     public class CSVImportService : IImportService
     {
-        private readonly IFile fileReader;
+        private readonly IFileHelper fileReader;
         private readonly Func<List<string[]>, List<InputData>> mapClaimData;
 
-        public CSVImportService(IFile fileReader, Func<List<string[]>, List<InputData>> mapClaimData)
+        public CSVImportService(IFileHelper fileReader, Func<List<string[]>, List<InputData>> mapClaimData)
         {
             this.fileReader = fileReader;
             this.mapClaimData = mapClaimData;

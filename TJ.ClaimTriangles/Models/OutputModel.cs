@@ -9,5 +9,7 @@ namespace TJ.ClaimTriangles.Models
         public int EarliestYear { get; set; }
         public int NumberOfDevelopmentYears { get; set; }
         public List<Product> Products { get; set; }
+
+        public string OutputPath { get; set; }
     }
 }
