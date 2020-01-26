@@ -17,7 +17,7 @@ namespace TJ.ClaimTriangles
 
             var outputDirectory = configuration.GetSection("OutputDirectory").Value;
 
-            
+
             // import data and map to input data model
             var importer = new CSVImportService(new FileReader(), ClaimCsvMapper.Map);
             var data = importer.ImportData(@"C:\dev\claimtriangles\input-data.csv");
@@ -28,66 +28,57 @@ namespace TJ.ClaimTriangles
 
             // for each product iterate through origin year and accumulate development year data
 
+            var currentYear = originYearVsDevYear.First().Year;
+
             foreach (var oYear in originYearVsDevYear)
             {
                 Console.WriteLine($"{oYear.Year}");
 
-
-                var currentYear = data.Where(x => x.OriginYear == oYear.Year);
-
-                foreach (var developmentYears in currentYear)
+                foreach (var developmentYears in oYear.DevelopmentYears)
                 {
-                    foreach (var product in products)
+                    foreach (var product in products.Where(x => x.Name == "Non-Comp"))
                     {
                         var dataPoint = data.FirstOrDefault(x => x.Product == product.Name
-                            && x.OriginYear == developmentYears.OriginYear
-                            && x.DevelopmentYear == developmentYears.DevelopmentYear);
+                            && x.OriginYear == oYear.Year
+                            && x.DevelopmentYear == developmentYears.Year);
 
-                        if (dataPoint != null)
+
+                        var index = product.Values.Count;
+                        var previousValue = index == 0
+                            ? 0
+                            : product.Values[index - 1];
+
+
+                        // we dont want an incremental if were on a new origin year
+                        // need a nicer way for this!!
+                        double incrementalValue = 0;
+                        if (currentYear == oYear.Year)
                         {
-                            var index = product.Values.Count;
-                            var previousValue = product.Values.Count == 0 
-                                ? 0 
-                                : product.Values[index - 1];
-                            product.Values.Add(previousValue + dataPoint.Incremental);
+                            incrementalValue = dataPoint != null
+                              ? dataPoint.Incremental
+                              : 0;
                         }
                         else
                         {
-                            product.Values.Add(0);
+                            currentYear = oYear.Year;
+                            incrementalValue = dataPoint.Incremental;
+                            previousValue = 0;
                         }
+
+                        product.Values.Add(previousValue + incrementalValue);
                     }
                 }
 
-                
+
             }
-            //foreach(var product in products)
-            //{
-            //    Console.WriteLine(product.Name);
-                
-            //    foreach (var originVsDevelopment in originYearVsDevYear)
-            //    {
-            //        // do we have data for this origin year?
-            //        var oy = data.Where(x => x.Product == product.Name
-            //        && x.OriginYear == originVsDevelopment.Year).ToList();
-
-            //        if (oy.Count > 0)
-            //        {
-            //            var index = product.Values.Count;
-            //            var previousValue = product.Values[index - 1];
-            //            product.Values.Add(previousValue + oy[0].Incremental);
-            //        }
-            //        else
-            //        {
-            //            product.Values.Add(0);
-            //        }
-                    
-            //    }
-            //}
 
 
-            // export the data
-
-
+            var output = new OutputModel
+            {
+                EarliestYear = originYearVsDevYear.First().Year,
+                NumberOfDevelopmentYears = originYearVsDevYear.Count,
+                Products = products
+            };
 
 
 
@@ -99,10 +90,10 @@ namespace TJ.ClaimTriangles
         {
             return data
                 .GroupBy(x => x.Product)
-                .Select(x => new Product 
-                    { 
-                        Name = x.Key
-                    })
+                .Select(x => new Product
+                {
+                    Name = x.Key
+                })
                 .ToList();
         }
 
@@ -125,12 +116,13 @@ namespace TJ.ClaimTriangles
                     var newOriginYear = new OriginYear { Year = item };
 
                     var developmentYears = data
+                        .Where(x => x.DevelopmentYear >= item)
                         .OrderBy(x => x.DevelopmentYear)
                         .Select(x => x.DevelopmentYear)
                         .Distinct()
                         .Select(x => new DevelopmentYear
                         {
-                            Year = item,
+                            Year = x,
                             OriginYear = newOriginYear
                         })
                         .ToList();
