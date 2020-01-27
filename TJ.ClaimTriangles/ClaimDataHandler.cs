@@ -9,12 +9,35 @@
     /// </summary>
     public class ClaimDataHandler : IClaimProcessor
     {
+        private readonly IImportService importService;
+        private readonly IExportService exportService;
+
+        /// <summary>
+        /// Intialise an instance of ClaimDataHandler
+        /// </summary>
+        public ClaimDataHandler(IImportService importService, 
+                                IExportService exportService)
+        {
+            this.importService = importService;
+            this.exportService = exportService;
+        }
+
+        public void Invoke(string inputFile, string outPutFile)
+        {
+            // import data and map to input data model
+            var claimData = importService.ImportData(inputFile);
+
+            var outputData = GetCalculatedProducts(claimData);
+
+            exportService.Export(outputData, outPutFile);
+        }
+
         /// <summary>
         /// Calculate and build Product list with accumulated data
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public OutputModel GetCalculatedProducts(IEnumerable<InputData> data)
+        private OutputModel GetCalculatedProducts(IEnumerable<InputData> data)
         {
             var originYearVsDevYear = GetOriginYears(data);
             var products = GetProducts(data);

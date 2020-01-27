@@ -9,10 +9,12 @@
     public interface IClaimProcessor
     {
         /// <summary>
-        /// Convert and caluate input data into the calculated output
+        /// Convert and caluate input data into the calculated output.
+        /// Handles the complete process of import, accumulating and outputting
+        /// the data into a CSV file
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        OutputModel GetCalculatedProducts(IEnumerable<InputData> data);
+        void Invoke(string inputFile, string outPutFile);
     }
 }

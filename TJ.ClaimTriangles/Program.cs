@@ -14,16 +14,11 @@
             var outputDirectory = configuration.GetSection("OutputDirectory").Value;
             var inputDirectory = configuration.GetSection("InputDirectory").Value;
 
-            // import data and map to input data model
-            var importer = new CSVImportService(new FileHelper(), ClaimCsvMapper.Map);
-            var data = importer.ImportData(inputDirectory);
-            
-            var output = new ClaimDataHandler().GetCalculatedProducts(data);
+            var claimDataHandler = new ClaimDataHandler(
+                new CSVImportService(new FileHelper(), ClaimCsvMapper.Map),
+                new CSVExporter(new FileHelper()));
 
-            var exporter = new CSVExporter(new FileHelper());
-
-            exporter.Export(output, outputDirectory);
-
+            claimDataHandler.Invoke(inputDirectory, outputDirectory);
 
             Console.WriteLine("Calculations Completed");
             Console.ReadLine();
