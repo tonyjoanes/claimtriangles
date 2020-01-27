@@ -7,6 +7,9 @@
     /// </summary>
     public class Product
     {
+        /// <summary>
+        /// Initialise an instance of a Product
+        /// </summary>
         public Product()
         {
             Values = new List<double>();

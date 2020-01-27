@@ -1,6 +1,8 @@
 # Claim Triangles
 
-A console app that can take in a CSV file of claims data and export an accumulated list
+A console app that can take in a CSV file of claims data and export an accumulated list.
+
+.NET Core 3.1
 
 ## Building and Running the app
 Open a command prompt and navigate to the `TJ.ClaimTriables` directory
@@ -18,4 +20,4 @@ Create a separate file handling and import program
 
 A logger utility for feedback
 
-A better mapper with more checks on the data to validate it.
+A better mapper with more checks on the data to validate it is the format expected
